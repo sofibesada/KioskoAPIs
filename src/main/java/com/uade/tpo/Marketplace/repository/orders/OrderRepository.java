@@ -28,7 +28,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     // buscar por rango de fechas
     @Query("SELECT o FROM Order o WHERE o.created_at BETWEEN :startDate AND :endDate")
-    List<Order> findOrdersBetweenDates(Timestamp startDate, Timestamp endDate)
+    List<Order> findOrdersBetweenDates(Timestamp startDate, Timestamp endDate);
 
 
 }

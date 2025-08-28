@@ -13,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PostPersist;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -26,15 +27,22 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(unique = true, nullable = false)
     private int number;
+
+    @PostPersist
+    public void postPersist() {
+        if (this.number == 0) {
+            this.number = this.id.intValue();
+        }
+    }
     
     @Column
     private Timestamp created_at;
     @Column
     private Timestamp updated_at;
     @Column
-    private Timestamp delete_at;
+    private Timestamp deleteAt;
     @Column
     private Long total_amount;
    
