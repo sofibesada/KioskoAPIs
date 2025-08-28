@@ -2,6 +2,7 @@ package com.uade.tpo.Marketplace.repository.orders;
 
 import java.security.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -25,6 +26,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findByDeliveryMethodId(Long deliveryMethodId);
 
     Order findByNumber(int number);
+
 
     // buscar por rango de fechas
     @Query("SELECT o FROM Order o WHERE o.created_at BETWEEN :startDate AND :endDate")
