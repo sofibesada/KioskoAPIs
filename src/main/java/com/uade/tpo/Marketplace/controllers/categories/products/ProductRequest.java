@@ -1,0 +1,12 @@
+package com.uade.tpo.Marketplace.controllers.categories.products;
+
+import lombok.Data;
+@Data
+
+public class ProductRequest {
+    private String name;
+    private String description;
+    private float price;
+    private int stock;
+    private Long categoryId;
+}
