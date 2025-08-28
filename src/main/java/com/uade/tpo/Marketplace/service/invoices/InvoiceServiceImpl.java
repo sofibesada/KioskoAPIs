@@ -46,7 +46,7 @@ public class InvoiceServiceImpl implements InvoiceService {
         Invoice invoice = new Invoice();
         invoice.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         invoice.setTotal_amount(totalAmount);
-        invoice.setDni_user(dniUser);
+        invoice.setDniUser(dniUser);
         invoice.setReceiptNumber(receiptNumber);
         invoice.setType(type);
         invoice.setOrder(order);
@@ -68,7 +68,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
         invoice.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         invoice.setTotal_amount(totalAmount);
-        invoice.setDni_user(dniUser);
+        invoice.setDniUser(dniUser);
         invoice.setReceiptNumber(receiptNumber);
         invoice.setType(type);
         invoice.setOrder(order);

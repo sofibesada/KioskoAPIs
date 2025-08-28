@@ -24,8 +24,8 @@ public class Invoice {
     private Timestamp createdAt;
     @Column
     private float total_amount;
-    @Column
-    private int dni_user;
+    @Column(name= "dni_user")
+    private int dniUser;
     @Column
     private int receiptNumber;
     @Column

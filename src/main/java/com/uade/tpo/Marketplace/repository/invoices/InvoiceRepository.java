@@ -11,7 +11,7 @@ import com.uade.tpo.Marketplace.entity.Invoice;
 public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
     List<Invoice> findByOrderId(Long orderId);
 
-    List<Invoice> findyByDniUser(int dniUser);
+    List<Invoice> findByDniUser(int dniUser);
     List<Invoice> findByType(String type);
     List<Invoice> findByReceiptNumber(int receiptNumber);
     
