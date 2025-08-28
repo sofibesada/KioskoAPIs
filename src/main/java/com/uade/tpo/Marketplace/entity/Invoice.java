@@ -21,7 +21,7 @@ public class Invoice {
     private Long id;
 
     @Column 
-    private Timestamp created_at;
+    private Timestamp createdAt;
     @Column
     private float total_amount;
     @Column
