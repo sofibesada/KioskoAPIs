@@ -12,10 +12,13 @@ import com.uade.tpo.Marketplace.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
+
+    Optional<User> findByEmail(String email);
+
     @Query("SELECT CASE WHEN COUNT(u) > 0 THEN true ELSE false END FROM User u WHERE u.email = ?1")
     boolean existsByEmail(String email);
 
-    Optional<User> findByEmail(String email);
+    
    
     @Query("SELECT u FROM User u WHERE u.dni = ?1")
     List<User> findByDni(int dni);
