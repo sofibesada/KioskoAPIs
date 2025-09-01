@@ -1,12 +1,15 @@
 package com.uade.tpo.Marketplace.controllers.categories.products;
 
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.uade.tpo.Marketplace.entity.Product;
 import com.uade.tpo.Marketplace.exceptions.ProductDuplicateException;
 import com.uade.tpo.Marketplace.service.products.ProductService;
 
+import java.io.IOException;
+import java.util.Base64; 
 import java.net.URI;
 import java.util.List;
 
@@ -58,5 +61,26 @@ public class ProductController {
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
+    }
+
+
+    @PostMapping("/{id}/upload-image")
+    public ResponseEntity<?> uploadImage(@PathVariable Long id,
+                                     @RequestParam("image") MultipartFile file) throws IOException {
+    Product product = productService.getProductById(id)
+            .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+    product.setImage(file.getBytes());
+    productService.save(product);
+    return ResponseEntity.ok("Imagen cargada correctamente");
+    }
+    @GetMapping("/{id}/image")
+    public ResponseEntity<String> getImage(@PathVariable Long id) {
+    Product product = productService.getProductById(id)
+            .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+    if (product.getImage() == null) {
+        return ResponseEntity.noContent().build();
+    }
+    String base64 = Base64.getEncoder().encodeToString(product.getImage());
+    return ResponseEntity.ok(base64);
     }
 }
