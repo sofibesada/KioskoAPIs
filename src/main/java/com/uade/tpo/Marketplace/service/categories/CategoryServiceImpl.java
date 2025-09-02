@@ -29,7 +29,7 @@ public class CategoryServiceImpl implements CategoryService {
         if (categoryRepository.existsByName(name)) {
             throw new CategoryDuplicateException();
         }
-        Category category = new Category(name);
+        Category category = new Category(name, description);
         return categoryRepository.save(category);
     }
 

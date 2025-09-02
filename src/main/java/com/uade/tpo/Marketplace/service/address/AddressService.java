@@ -5,7 +5,6 @@ import java.util.Optional;
 import com.uade.tpo.Marketplace.entity.Address;
 
 public interface AddressService {
-    
     List<Address> getAddresses();
     Optional<Address> getAddressById(Long id);
     Address createAddress(String street, int number, int floor, int department, int codigoPostal, Long stateId);

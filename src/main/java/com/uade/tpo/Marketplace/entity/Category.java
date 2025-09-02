@@ -19,7 +19,8 @@ public class Category { //tabla
     
     public Category(){}
 
-    public Category (String description) {
+    public Category (String name, String description) {
+        this.name = name;
         this.description = description;
     }
 
