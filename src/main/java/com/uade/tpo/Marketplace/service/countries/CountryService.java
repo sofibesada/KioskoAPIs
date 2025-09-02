@@ -11,4 +11,5 @@ public interface CountryService {
     Country createCountry(String name);
     Country updateCountry(Long id, String name);
     void deleteCountry(Long id);
+    void importCountriesFromApi();
 }

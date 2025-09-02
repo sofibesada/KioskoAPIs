@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.client.RestTemplate;
+
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,8 @@ public class SecurityConfig {
                         .csrf(AbstractHttpConfigurer::disable)
                         .authorizeHttpRequests(auth -> auth
                                 // publico
+                                .requestMatchers("/countries/import").permitAll()
+
                                 .requestMatchers("/api/v1/auth/**").permitAll()
                                 .requestMatchers("/products", "/products/*", "/products/*/image").permitAll()
                                 .requestMatchers("/categories", "/categories/*").permitAll()
@@ -44,6 +48,8 @@ public class SecurityConfig {
                         
                                 // el resto si o si autenticado
                                 .anyRequest().authenticated()
+
+                                
                         )
                         .sessionManagement(s -> s.sessionCreationPolicy(STATELESS))
                         .authenticationProvider(authenticationProvider)
@@ -51,5 +57,9 @@ public class SecurityConfig {
                         
                         return http.build();
  
+        }
+        @Bean
+        public RestTemplate restTemplate() {
+                return new RestTemplate();
         }
 }

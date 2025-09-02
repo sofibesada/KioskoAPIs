@@ -5,15 +5,25 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import com.uade.tpo.Marketplace.controllers.categories.countries.CountryApiResponse;
 import com.uade.tpo.Marketplace.entity.Country;
+import com.uade.tpo.Marketplace.entity.State;
 import com.uade.tpo.Marketplace.repository.country.CountryRespository;
+import com.uade.tpo.Marketplace.repository.states.StateRepository;
 
 @Service
 public class CountryServiceImpl implements CountryService {
 
     @Autowired
     private CountryRespository countryRepository;
+
+    @Autowired
+    private StateRepository stateRepository;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Override
     public List<Country> getCountries() { return countryRepository.findAll(); }
@@ -43,5 +53,28 @@ public class CountryServiceImpl implements CountryService {
         }
         countryRepository.deleteById(id);
     }
-}
 
+    public void importCountriesFromApi() {
+        String url = "https://countriesnow.space/api/v0.1/countries/states";
+
+        CountryApiResponse response = restTemplate.getForObject(url, CountryApiResponse.class);
+
+        if (response != null && !response.isError()) {
+            for (CountryApiResponse.CountryData apiCountry : response.getData()) {
+                Country country = new Country();
+                country.setName(apiCountry.getName());
+
+                List<State> states = apiCountry.getStates().stream().map(apiState -> {
+                    State state = new State();
+                    state.setName(apiState.getName());
+                    state.setCountry(country);
+                    return state;
+                })
+                .toList();
+
+                country.setStates(states);
+                countryRepository.save(country);
+            }
+        }
+    }
+}

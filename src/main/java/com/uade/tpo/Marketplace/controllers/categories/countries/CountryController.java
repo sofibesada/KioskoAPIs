@@ -54,4 +54,9 @@ public class CountryController {
         countryService.deleteCountry(id);
         return ResponseEntity.noContent().build();
     }
+    @PostMapping("/import")
+    public ResponseEntity<String> importCountries() {
+        countryService.importCountriesFromApi();
+        return ResponseEntity.ok("Importación completada");
+    }
 }
