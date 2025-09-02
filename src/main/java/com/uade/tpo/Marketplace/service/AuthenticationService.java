@@ -7,9 +7,7 @@ import com.uade.tpo.Marketplace.controllers.categories.config.JwtService;
 import com.uade.tpo.Marketplace.entity.User;
 import com.uade.tpo.Marketplace.entity.UserType;
 import com.uade.tpo.Marketplace.entity.Genders;
-import com.uade.tpo.Marketplace.repository.genders.GenderRepository;
 import com.uade.tpo.Marketplace.repository.users.UserRepository;
-import com.uade.tpo.Marketplace.repository.usertypes.UserTypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,20 +19,12 @@ import org.springframework.stereotype.Service;
 public class AuthenticationService {
 
     private final UserRepository userRepository;
-    private final GenderRepository genderRepository;
-    private final UserTypeRepository userTypeRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
-        // 1) Tipo de usuario
-        UserType role = userTypeRepository.findByTypeUser(request.getUserType())
-                .orElseThrow(() -> new RuntimeException("Tipo de usuario no encontrado: " + request.getUserType()));
-
-        // 2) Género (OBLIGATORIO según tu entidad User)
-        Genders gender = genderRepository.findById(request.getGenderId())
-                .orElseThrow(() -> new RuntimeException("Género no encontrado con id: " + request.getGenderId()));
+        
 
         // 3) Construir usuario
         User user = User.builder()
@@ -42,8 +32,8 @@ public class AuthenticationService {
                 .surname(request.getLastname())       // lastname  -> surname
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .userType(role)
-                .gender(gender)                       // <-- CLAVE
+                .userType(request.getUserType())
+                .gender(request.getGender())                       // <-- CLAVE
                 .build();
 
         // 4) Guardar y token

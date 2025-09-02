@@ -24,6 +24,9 @@ public class Payment {
     private Timestamp updated_at;
     @Column
     private Timestamp delete_at; 
+    @Column
+    private int dni;
+   
 
     @Column
     private double amount;

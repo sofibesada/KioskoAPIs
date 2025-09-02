@@ -41,6 +41,10 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<OrderDetail> orderDetail;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     
 
 }

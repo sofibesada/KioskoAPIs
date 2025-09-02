@@ -36,7 +36,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public Payment createPayment(double amount, Long orderId, Long paymentMethodId) {
+    public Payment createPayment(double amount, Long orderId, Long paymentMethodId, int dni) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new IllegalArgumentException("Orden no encontrada con id: " + orderId));
 
@@ -48,12 +48,13 @@ public class PaymentServiceImpl implements PaymentService {
         payment.setAmount(amount);
         payment.setOrder(order);
         payment.setPaymentMethod(paymentMethod);
+        payment.setDni(dni);
 
         return paymentRepository.save(payment);
     }
 
     @Override
-    public Payment updatePayment(Long id, double amount, Long orderId, Long paymentMethodId) {
+    public Payment updatePayment(Long id, double amount, Long orderId, Long paymentMethodId, int dni) {
         Payment payment = paymentRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Pago no encontrado con id: " + id));
 
@@ -67,6 +68,7 @@ public class PaymentServiceImpl implements PaymentService {
         payment.setAmount(amount);
         payment.setOrder(order);
         payment.setPaymentMethod(paymentMethod);
+        payment.setDni(dni);
 
         return paymentRepository.save(payment);
     }

@@ -34,7 +34,8 @@ public class PaymentController {
         Payment payment = paymentService.createPayment(
                 request.getAmount(),
                 request.getOrderId(),
-                request.getPaymentMethodId()
+                request.getPaymentMethodId(),
+                request.getDni()
         );
         return ResponseEntity.status(HttpStatus.CREATED).body(payment);
     }
@@ -45,7 +46,8 @@ public class PaymentController {
                 id,
                 request.getAmount(),
                 request.getOrderId(),
-                request.getPaymentMethodId()
+                request.getPaymentMethodId(),
+                request.getDni()
         );
         return ResponseEntity.ok(payment);
     }

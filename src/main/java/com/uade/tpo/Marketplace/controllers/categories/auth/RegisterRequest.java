@@ -1,5 +1,13 @@
 package com.uade.tpo.Marketplace.controllers.categories.auth;
 
+
+
+import java.time.LocalDateTime;
+
+import com.uade.tpo.Marketplace.entity.Genders;
+import com.uade.tpo.Marketplace.entity.UserType;
+
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +19,9 @@ public class RegisterRequest {
     private String lastname;    // se mapea a User.surname
     private String email;
     private String password;
-    private String userType;    // "Cliente", "Admin", etc. (String)
-    private Long genderId;
+    private UserType userType;    // "Cliente", "Admin", etc. (String)
+    private Genders gender;
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
 }
 

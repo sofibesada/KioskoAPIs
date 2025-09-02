@@ -8,8 +8,8 @@ import com.uade.tpo.Marketplace.exceptions.ProductDuplicateException;
 public interface ProductService {
     List<Product> getProducts();
     Optional<Product> getProductById(Long productId);
-    Product createProduct(String name, String description, float price, int stock, Long categoryId) throws ProductDuplicateException;
-    Product updateProduct(Long id, String name, String description, float price, int stock, Long categoryId) throws ProductDuplicateException;
+    Product createProduct(String name, String description, float price, int stock, Long categoryId, Long userId) throws ProductDuplicateException;
+    Product updateProduct(Long id, String name, String description, float price, int stock, Long categoryId, Long userId) throws ProductDuplicateException;
     void deleteProduct(Long id);
     Product save(Product product);
 }

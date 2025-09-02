@@ -7,4 +7,5 @@ public class PaymentRequest {
     private double amount;
     private Long orderId;
     private Long paymentMethodId;
+    private int dni;
 }

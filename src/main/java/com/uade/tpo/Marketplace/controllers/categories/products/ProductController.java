@@ -39,7 +39,8 @@ public class ProductController {
                 request.getDescription(),
                 request.getPrice(),
                 request.getStock(),
-                request.getCategoryId()
+                request.getCategoryId(),
+                request.getUserId()
         );
         return ResponseEntity.created(URI.create("/products/" + result.getId())).body(result);
     }
@@ -52,7 +53,8 @@ public class ProductController {
                 request.getDescription(),
                 request.getPrice(),
                 request.getStock(),
-                request.getCategoryId()
+                request.getCategoryId(),
+                request.getUserId()
         );
         return ResponseEntity.ok(updated);
     }

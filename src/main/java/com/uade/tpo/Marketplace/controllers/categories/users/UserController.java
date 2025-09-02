@@ -7,7 +7,6 @@ import com.uade.tpo.Marketplace.entity.User;
 import com.uade.tpo.Marketplace.exceptions.UserDuplicateException;
 import com.uade.tpo.Marketplace.service.users.UserService;
 
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -29,37 +28,12 @@ public class UserController {
                 .orElse(ResponseEntity.noContent().build());
     }
 
-    @PostMapping
-    public ResponseEntity<Object> createUser(@RequestBody UserRequest request) throws UserDuplicateException {
-        User result = userService.createUser(
-                request.getName(),
-                request.getSurname(),
-                request.getDni(),
-                request.getEmail(),
-                request.getPassword(),
-                request.getPhone(),
-                request.getBirthDate(),
-                request.getAddressId(),
-                request.getGenderId(),
-                request.getUserTypeId()
-        );
-        return ResponseEntity.created(URI.create("/users/" + result.getId())).body(result);
-    }
 
-    @PutMapping("/{id}")
+
+    @PatchMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserRequest request) throws UserDuplicateException {
         User updated = userService.updateUser(
-                id,
-                request.getName(),
-                request.getSurname(),
-                request.getDni(),
-                request.getEmail(),
-                request.getPassword(),
-                request.getPhone(),
-                request.getBirthDate(),
-                request.getAddressId(),
-                request.getGenderId(),
-                request.getUserTypeId()
+                id, request
         );
         return ResponseEntity.ok(updated);
     }

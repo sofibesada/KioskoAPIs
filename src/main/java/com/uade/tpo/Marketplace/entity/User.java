@@ -10,6 +10,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -38,8 +40,6 @@ public class User implements UserDetails {
     @Column
     private String surname;
     @Column
-    private int dni;
-    @Column
     private String email;
     @Column
     private String password;
@@ -64,17 +64,20 @@ public class User implements UserDetails {
     @JoinColumn(name = "address_id")
     private Address address;
 
-    @ManyToOne
-    @JoinColumn(name = "gender_id", nullable = false)
+    @Enumerated(EnumType.STRING) // Se guarda como texto ("ADMIN", "CLIENT", etc.)
+    private UserType userType;
+
+    @Enumerated(EnumType.STRING) // Se guarda como texto ("MALE", "FEMALE", etc.)
     private Genders gender;
 
-    @ManyToOne
-    @JoinColumn(name="userType_id",nullable = false)
-    private UserType userType;
+    @OneToMany(mappedBy = "user")
+    private List<Product> products;
+
+
 
    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(userType.getTypeUser()));
+        return List.of(new SimpleGrantedAuthority(userType.name()));
     }
 
     @Override

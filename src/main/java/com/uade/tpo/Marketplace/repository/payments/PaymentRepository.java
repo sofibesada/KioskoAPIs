@@ -17,4 +17,5 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
 
     // Buscar pagos por método
     List<Payment> findByPaymentMethodId(Long paymentMethodId);
+
 }
