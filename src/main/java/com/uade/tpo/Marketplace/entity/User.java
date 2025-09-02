@@ -47,11 +47,11 @@ public class User implements UserDetails {
     private String phone;
     @Column
     private LocalDate birthDate;
-    @Column(name = "created_at", updatable = false)
+   
     private LocalDateTime createdAt;
-    @Column(name = "updated_at")
+  
     private LocalDateTime updatedAt;
-    @Column(name = "delete_at")
+   
     private LocalDateTime deleteAt;
     
   
@@ -70,7 +70,9 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING) // Se guarda como texto ("MALE", "FEMALE", etc.)
     private Genders gender;
 
-    @OneToMany(mappedBy = "user")
+
+    // un vendedor puede publicar muchos productos
+    @OneToMany(mappedBy = "owner")
     private List<Product> products;
 
 

@@ -43,7 +43,7 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private User owner;
 
     
 

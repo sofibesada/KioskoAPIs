@@ -5,10 +5,11 @@ import com.uade.tpo.Marketplace.controllers.categories.auth.AuthenticationRespon
 import com.uade.tpo.Marketplace.controllers.categories.auth.RegisterRequest;
 import com.uade.tpo.Marketplace.controllers.categories.config.JwtService;
 import com.uade.tpo.Marketplace.entity.User;
-import com.uade.tpo.Marketplace.entity.UserType;
-import com.uade.tpo.Marketplace.entity.Genders;
 import com.uade.tpo.Marketplace.repository.users.UserRepository;
 import lombok.RequiredArgsConstructor;
+
+import java.time.LocalDateTime;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,7 +34,8 @@ public class AuthenticationService {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .userType(request.getUserType())
-                .gender(request.getGender())                       // <-- CLAVE
+                .gender(request.getGender())
+                .createdAt(LocalDateTime.now())                       // <-- CLAVE
                 .build();
 
         // 4) Guardar y token

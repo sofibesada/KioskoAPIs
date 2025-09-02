@@ -21,7 +21,7 @@ public class RegisterRequest {
     private String password;
     private UserType userType;    // "Cliente", "Admin", etc. (String)
     private Genders gender;
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
+    
+    
 }
 

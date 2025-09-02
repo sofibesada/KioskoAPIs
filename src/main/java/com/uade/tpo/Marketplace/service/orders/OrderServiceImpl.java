@@ -46,12 +46,15 @@ public class OrderServiceImpl implements OrderService {
         OrderState orderState = orderStateRepository.findById(orderStateId)
                 .orElseThrow(() -> new IllegalArgumentException("Estado de orden no encontrado con id: " + orderStateId));
 
+
+             
         Order order = new Order();
         order.setUser(user);
         order.setDeliveryMethod(deliveryMethod);
         order.setOrderState(orderState);
         order.setTotal_amount(totalAmount);
         order.setCreated_at(Timestamp.from(Instant.now()));
+
 
         return orderRepository.save(order); // acá Hibernate persiste y luego @PostPersist setea number
     }

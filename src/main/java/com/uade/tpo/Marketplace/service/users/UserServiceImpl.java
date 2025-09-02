@@ -1,6 +1,5 @@
 package com.uade.tpo.Marketplace.service.users;
 
-import com.uade.tpo.Marketplace.controllers.categories.auth.RegisterRequest;
 import com.uade.tpo.Marketplace.controllers.categories.users.UserRequest;
 import com.uade.tpo.Marketplace.entity.User;
 import com.uade.tpo.Marketplace.repository.users.UserRepository;
@@ -9,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,17 +38,27 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con id: " + id));
 
-        user.setName(request.getName());
-        user.setSurname(request.getSurname());
-        user.setEmail(request.getEmail());
+        if (request.getName() != null) user.setName(request.getName());
+        if (request.getSurname() != null) user.setSurname(request.getSurname());
+        if (request.getEmail() != null) user.setEmail(request.getEmail());
+
         if (request.getPassword() != null && !request.getPassword().isEmpty()) {
             user.setPassword(passwordEncoder.encode(request.getPassword()));
         }
-        user.setUserType(request.getUsertype());
-        user.setGender(request.getGender());
+
+        if (request.getPhone() != null) user.setPhone(request.getPhone());
+        if (request.getBirthDate() != null) user.setBirthDate(request.getBirthDate());
+        if (request.getAddressId() != null) {
+            //user.setAddress(AddressRepository.findById(request.getAddressId())
+              //      .orElseThrow(() -> new IllegalArgumentException("Dirección no encontrada")));
+        }
+
+        if (request.getUsertype() != null) user.setUserType(request.getUsertype());
+        if (request.getGender() != null) user.setGender(request.getGender());
 
         return userRepository.save(user);
     }
+
 
     @Override
     public void deleteUser(Long id) {

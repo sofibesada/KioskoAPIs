@@ -24,14 +24,32 @@ public class SecurityConfig {
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
                 http
-                                .csrf(AbstractHttpConfigurer::disable)
-                                .authorizeHttpRequests(req -> req.requestMatchers("/api/v1/auth/**").permitAll()
-                                .requestMatchers("/usertypes/**", "/genders/**").permitAll()
-                                                .anyRequest()
-                                                .authenticated())
-                                .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
-                                .authenticationProvider(authenticationProvider)
-                                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-                return http.build();
+                        .csrf(AbstractHttpConfigurer::disable)
+                        .authorizeHttpRequests(auth -> auth
+                                // publico
+                                .requestMatchers("/api/v1/auth/**").permitAll()
+                                .requestMatchers("/products", "/products/*", "/products/*/image").permitAll()
+                                .requestMatchers("/categories", "/categories/*").permitAll()
+                        
+                                // solo USER (admin no compra)
+                                .requestMatchers("/cart/**").hasAuthority("USER")
+                                .requestMatchers("/orders/**").hasAuthority("USER")
+                        
+                                // usuarios, despues se filtra que los clientes solo puedan modificar SU ID
+                                .requestMatchers("/users/**").hasAnyAuthority("USER","ADMIN")
+                        
+                                // todo admin
+                                .requestMatchers("/products/**").hasAuthority("ADMIN")
+                                .requestMatchers("/categories/**").hasAuthority("ADMIN")
+                        
+                                // el resto si o si autenticado
+                                .anyRequest().authenticated()
+                        )
+                        .sessionManagement(s -> s.sessionCreationPolicy(STATELESS))
+                        .authenticationProvider(authenticationProvider)
+                        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                        
+                        return http.build();
+ 
         }
 }

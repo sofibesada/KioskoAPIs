@@ -2,6 +2,8 @@ package com.uade.tpo.Marketplace.controllers.categories.users;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.uade.tpo.Marketplace.entity.User;
 import com.uade.tpo.Marketplace.exceptions.UserDuplicateException;
@@ -21,22 +23,26 @@ public class UserController {
         return ResponseEntity.ok(userService.getUsers());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+    @GetMapping("/users/{id}")
+    @PreAuthorize("hasAuthority('ADMIN') or @userSecurity.isSelf(#id, authentication)")
+    public ResponseEntity<User> getUser(@PathVariable Long id, Authentication auth) {
         return userService.getUserById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.noContent().build());
+            .map(ResponseEntity::ok)
+            .orElse(ResponseEntity.notFound().build());
+    }
+    
+
+
+
+    @PatchMapping("/users/{id}")
+    @PreAuthorize("hasAuthority('ADMIN') or @userSecurity.isSelf(#id, authentication)")
+    public ResponseEntity<User> patchUser(@PathVariable Long id,
+                                                @RequestBody UserRequest request,
+                                                 Authentication auth) throws UserDuplicateException {
+        return ResponseEntity.ok(userService.updateUser(id, request));
     }
 
-
-
-    @PatchMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserRequest request) throws UserDuplicateException {
-        User updated = userService.updateUser(
-                id, request
-        );
-        return ResponseEntity.ok(updated);
-    }
+  
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
