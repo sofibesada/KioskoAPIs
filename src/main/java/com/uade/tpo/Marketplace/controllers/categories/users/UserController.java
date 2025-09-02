@@ -23,7 +23,7 @@ public class UserController {
         return ResponseEntity.ok(userService.getUsers());
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN') or @userSecurity.isSelf(#id, authentication)")
     public ResponseEntity<User> getUser(@PathVariable Long id, Authentication auth) {
         return userService.getUserById(id)
@@ -34,7 +34,7 @@ public class UserController {
 
 
 
-    @PatchMapping("/users/{id}")
+    @PatchMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN') or @userSecurity.isSelf(#id, authentication)")
     public ResponseEntity<User> patchUser(@PathVariable Long id,
                                                 @RequestBody UserRequest request,

@@ -32,11 +32,11 @@ public class SecurityConfig {
                                 .requestMatchers("/categories", "/categories/*").permitAll()
                         
                                 // solo USER (admin no compra)
-                                .requestMatchers("/cart/**").hasAuthority("USER")
-                                .requestMatchers("/orders/**").hasAuthority("USER")
+                                .requestMatchers("/cart/**").hasAuthority("CLIENTE")
+                                .requestMatchers("/orders/**").hasAuthority("CLIENTE")
                         
                                 // usuarios, despues se filtra que los clientes solo puedan modificar SU ID
-                                .requestMatchers("/users/**").hasAnyAuthority("USER","ADMIN")
+                                .requestMatchers("/users/**").hasAnyAuthority("CLIENTE","ADMIN")
                         
                                 // todo admin
                                 .requestMatchers("/products/**").hasAuthority("ADMIN")
