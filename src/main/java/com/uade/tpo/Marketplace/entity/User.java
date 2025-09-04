@@ -57,17 +57,17 @@ public class User implements UserDetails {
   
 
     
-    @OneToMany(mappedBy = "user") //user va a ser FK de tabla de orders
+    @OneToMany(mappedBy = "user") 
     private List<Order> orders;
 
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
 
-    @Enumerated(EnumType.STRING) // Se guarda como texto ("ADMIN", "CLIENT", etc.)
+    @Enumerated(EnumType.STRING) 
     private UserType userType;
 
-    @Enumerated(EnumType.STRING) // Se guarda como texto ("MALE", "FEMALE", etc.)
+    @Enumerated(EnumType.STRING) 
     private Genders gender;
 
 
@@ -75,6 +75,11 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "owner")
     private List<Product> products;
 
+    @OneToMany(mappedBy = "user")
+    private List<Favorite> favorite;
+
+    @OneToMany(mappedBy = "user")
+    private List<Reviiew> review;
 
 
    @Override

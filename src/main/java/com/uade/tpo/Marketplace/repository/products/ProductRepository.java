@@ -14,4 +14,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM Product p WHERE p.name = ?1")
     boolean existsByName(String name);
+
+    List<Product> findByStockGreaterThan(int stock);
+
 }
