@@ -44,7 +44,8 @@ public class AddressController {
                 request.getFloor(),
                 request.getDepartment(),
                 request.getCodigoPostal(),
-                request.getProvinciaId(),
+                request.getProvincia(),
+             
                 request.getCity()
                 
         );
@@ -60,7 +61,8 @@ public class AddressController {
                 request.getFloor(),
                 request.getDepartment(),
                 request.getCodigoPostal(),
-                request.getProvinciaId(),
+                request.getProvincia(),
+             
                 request.getCity()
                 
         );

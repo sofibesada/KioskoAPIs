@@ -7,8 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 
@@ -33,13 +31,13 @@ public class Address {
     private String city;
     @Column(nullable = false)
     private String country = "Argentina";
+    @Column
+    private String province;
 
     //poner pais como default argentina
 
     @OneToMany(mappedBy = "address")
     private List<User> users;
 
-    @ManyToOne
-    @JoinColumn(name = "province_id")
-    private Province province;
+
 }

@@ -10,7 +10,7 @@ public class AddressRequest {
     private int floor;
     private int department;
     private int codigoPostal;
-    private String provinciaId;
     private String city;
+    private String provincia;
 
 }

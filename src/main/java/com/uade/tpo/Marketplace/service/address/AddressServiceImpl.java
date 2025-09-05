@@ -5,9 +5,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.uade.tpo.Marketplace.entity.Address;
-import com.uade.tpo.Marketplace.entity.Province;
 import com.uade.tpo.Marketplace.repository.address.AddressRepository;
-import com.uade.tpo.Marketplace.repository.province.ProvinceRepository;
+
 
 @Service
 public class AddressServiceImpl implements AddressService {
@@ -15,8 +14,7 @@ public class AddressServiceImpl implements AddressService {
     @Autowired
     private AddressRepository addressRepository;
 
-    @Autowired
-    private ProvinceRepository provinciaRepository;
+
 
     @Override
     public List<Address> getAddresses() {
@@ -29,7 +27,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public Address createAddress(String street, int number, int floor, int department, int codigoPostal, String city, String provinceId) {
+    public Address createAddress(String street, int number, int floor, int department, int codigoPostal, String city, String province) {
         
         Address address = new Address();
         address.setStreet(street);
@@ -39,26 +37,19 @@ public class AddressServiceImpl implements AddressService {
         address.setCodigoPostal(codigoPostal);
         address.setCity(city);
         address.setCountry("Argentina");
-        Province provincia = provinciaRepository.findById(provinceId)
-                .orElseThrow(() -> new RuntimeException("Provincia no encontrada"));
-      
-
-        address.setProvince(provincia);
+        address.setProvince(province);
 
 
         return addressRepository.save(address);
     }
 
     @Override
-    public Address updateAddress(Long id, String street, int number, int floor, int department, int codigoPostal, String city, String provinceId) {
+    public Address updateAddress(Long id, String street, int number, int floor, int department, int codigoPostal, String city, String province) {
         Address address = addressRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Dirección no encontrada con id: " + id));
-
-        Province provincia = provinciaRepository.findById(provinceId)
-                .orElseThrow(() -> new RuntimeException("Provincia no encontrada"));
        
 
-        address.setProvince(provincia);
+        address.setProvince(province);
         address.setCity(city);
 
         address.setStreet(street);
