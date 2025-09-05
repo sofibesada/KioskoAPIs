@@ -3,12 +3,9 @@ package com.uade.tpo.Marketplace.service.users;
 import com.uade.tpo.Marketplace.controllers.categories.users.UserRequest;
 import com.uade.tpo.Marketplace.entity.User;
 import com.uade.tpo.Marketplace.repository.users.UserRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 

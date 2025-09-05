@@ -86,4 +86,5 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findByStockGreaterThan(0);
     }
 
+
 }

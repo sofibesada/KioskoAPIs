@@ -91,6 +91,9 @@ public class ProductController {
     public ResponseEntity<List<Product>> getAvailableProducts() {
         return ResponseEntity.ok(productService.getAvailableProducts());
     }
+
+
+
 }
 
 

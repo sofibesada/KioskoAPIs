@@ -1,13 +1,7 @@
 package com.uade.tpo.Marketplace.controllers.categories.auth;
 
-
-
-import java.time.LocalDateTime;
-
 import com.uade.tpo.Marketplace.entity.Genders;
 import com.uade.tpo.Marketplace.entity.UserType;
-
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

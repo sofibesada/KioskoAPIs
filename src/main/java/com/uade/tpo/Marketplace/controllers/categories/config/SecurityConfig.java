@@ -2,6 +2,7 @@ package com.uade.tpo.Marketplace.controllers.categories.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -30,33 +31,40 @@ public class SecurityConfig {
                         .authorizeHttpRequests(auth -> auth
                                 // publico
                                 .requestMatchers("/countries/import").permitAll()
-
                                 .requestMatchers("/api/v1/auth/**").permitAll()
-                                .requestMatchers("/products", "/products/*", "/products/*/image").permitAll()
-                                .requestMatchers("/categories", "/categories/*").permitAll()
-                        
-                                // solo USER (admin no compra)
+                                .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/countries/**").permitAll()
+
+                                // solo CLIENTE
                                 .requestMatchers("/cart/**").hasAuthority("CLIENTE")
                                 .requestMatchers("/orders/**").hasAuthority("CLIENTE")
-                        
-                                // usuarios, despues se filtra que los clientes solo puedan modificar SU ID
+                                .requestMatchers("/addresses/**").hasAuthority("CLIENTE")
+                                .requestMatchers(HttpMethod.POST, "/orders/**").hasAuthority("CLIENTE")
+
+                                // CLIENTE o ADMIN (pero validar lógica en service/controller)
                                 .requestMatchers("/users/**").hasAnyAuthority("CLIENTE","ADMIN")
-                        
-                                // todo admin
-                                .requestMatchers("/products/**").hasAuthority("ADMIN")
-                                .requestMatchers("/categories/**").hasAuthority("ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/invoices/**").hasAnyAuthority("CLIENTE","ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/orders/**").hasAnyAuthority("CLIENTE","ADMIN")
+
+                                // solo ADMIN (CRUD productos/categorías)
+                                .requestMatchers(HttpMethod.POST, "/products/**").hasAuthority("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/products/**").hasAuthority("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/products/**").hasAuthority("ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/categories/**").hasAuthority("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/categories/**").hasAuthority("ADMIN")
+                                .requestMatchers(HttpMethod.DELETE, "/categories/**").hasAuthority("ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/countries/import").hasAuthority("ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/countries/**").permitAll()
                         
                                 // el resto si o si autenticado
                                 .anyRequest().authenticated()
-
-                                
                         )
                         .sessionManagement(s -> s.sessionCreationPolicy(STATELESS))
                         .authenticationProvider(authenticationProvider)
                         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
                         
                         return http.build();
- 
         }
         @Bean
         public RestTemplate restTemplate() {
