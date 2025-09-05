@@ -10,5 +10,6 @@ public class AddressRequest {
     private int floor;
     private int department;
     private int codigoPostal;
-    private Long stateId;
+    private String provinciaId;
+    private String municipioId;
 }

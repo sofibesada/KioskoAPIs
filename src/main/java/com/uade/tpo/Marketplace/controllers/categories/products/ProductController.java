@@ -85,4 +85,12 @@ public class ProductController {
     String base64 = Base64.getEncoder().encodeToString(product.getImage());
     return ResponseEntity.ok(base64);
     }
+
+
+    @GetMapping("/available")
+    public ResponseEntity<List<Product>> getAvailableProducts() {
+        return ResponseEntity.ok(productService.getAvailableProducts());
+    }
 }
+
+

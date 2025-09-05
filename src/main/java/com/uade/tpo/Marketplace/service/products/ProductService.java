@@ -12,4 +12,5 @@ public interface ProductService {
     Product updateProduct(Long id, String name, String description, float price, int stock, Long categoryId, Long userId) throws ProductDuplicateException;
     void deleteProduct(Long id);
     Product save(Product product);
+    List<Product> getAvailableProducts();
 }

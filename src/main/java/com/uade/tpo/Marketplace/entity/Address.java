@@ -30,12 +30,18 @@ public class Address {
     @Column
     private int codigoPostal;
 
+    //poner pais como default argentina
+
     @OneToMany(mappedBy = "address")
     private List<User> users;
 
     @ManyToOne
-    @JoinColumn(name = "state_id", nullable = false)
-    private State state;
+    @JoinColumn(name = "province_id")
+    private Province province;
+
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    private City city;
 
 
 }

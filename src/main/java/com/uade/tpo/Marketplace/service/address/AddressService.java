@@ -7,8 +7,8 @@ import com.uade.tpo.Marketplace.entity.Address;
 public interface AddressService {
     List<Address> getAddresses();
     Optional<Address> getAddressById(Long id);
-    Address createAddress(String street, int number, int floor, int department, int codigoPostal, Long stateId);
-    Address updateAddress(Long id, String street, int number, int floor, int department, int codigoPostal, Long stateId);
+    Address createAddress(String street, int number, int floor, int department, int codigoPostal, String cityId, String provinceId);
+    Address updateAddress(Long id, String street, int number, int floor, int department, int codigoPostal, String cityId, String provinceId);
     void deleteAddress(Long id);
 
 }
