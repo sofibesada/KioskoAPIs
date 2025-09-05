@@ -14,8 +14,8 @@ public class LocationController {
 
     @PostMapping("/import")
     public ResponseEntity<String> importLocations() {
-        locationService.importarCityProvince();
-        return ResponseEntity.ok("Provincias y ciudades importadas correctamente");
+        locationService.importarProvince();
+        return ResponseEntity.ok("Provincias importadas correctamente");
     }
 }
 

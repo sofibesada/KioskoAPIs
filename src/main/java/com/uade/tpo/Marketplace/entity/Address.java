@@ -29,6 +29,10 @@ public class Address {
     private int department;
     @Column
     private int codigoPostal;
+    @Column
+    private String city;
+    @Column(nullable = false)
+    private String country = "Argentina";
 
     //poner pais como default argentina
 
@@ -38,10 +42,4 @@ public class Address {
     @ManyToOne
     @JoinColumn(name = "province_id")
     private Province province;
-
-    @ManyToOne
-    @JoinColumn(name = "city_id")
-    private City city;
-
-
 }

@@ -11,5 +11,6 @@ public class AddressRequest {
     private int department;
     private int codigoPostal;
     private String provinciaId;
-    private String municipioId;
+    private String city;
+
 }

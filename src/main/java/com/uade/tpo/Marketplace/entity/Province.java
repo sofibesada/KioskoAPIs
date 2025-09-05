@@ -23,9 +23,6 @@ public class Province {
     private String id; // viene de la API Georef
     private String nombre;
 
-    @OneToMany(mappedBy = "province", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<City> city;
-
     @OneToMany(mappedBy = "province")
     private List<Address> addresses;
     

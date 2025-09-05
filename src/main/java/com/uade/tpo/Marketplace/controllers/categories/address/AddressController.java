@@ -45,7 +45,8 @@ public class AddressController {
                 request.getDepartment(),
                 request.getCodigoPostal(),
                 request.getProvinciaId(),
-                request.getMunicipioId()
+                request.getCity()
+                
         );
         return ResponseEntity.created(URI.create("/addresses/" + result.getId())).body(result);
     }
@@ -60,7 +61,8 @@ public class AddressController {
                 request.getDepartment(),
                 request.getCodigoPostal(),
                 request.getProvinciaId(),
-                request.getMunicipioId()
+                request.getCity()
+                
         );
         return ResponseEntity.ok(updated);
     }
