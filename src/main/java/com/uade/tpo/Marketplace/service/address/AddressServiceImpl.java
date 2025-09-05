@@ -38,6 +38,7 @@ public class AddressServiceImpl implements AddressService {
         address.setDepartment(department);
         address.setCodigoPostal(codigoPostal);
         address.setCity(city);
+        address.setCountry("Argentina");
         Province provincia = provinciaRepository.findById(provinceId)
                 .orElseThrow(() -> new RuntimeException("Provincia no encontrada"));
       
@@ -65,6 +66,7 @@ public class AddressServiceImpl implements AddressService {
         address.setFloor(floor);
         address.setDepartment(department);
         address.setCodigoPostal(codigoPostal);
+        address.setCountry("Argentina");
 
         return addressRepository.save(address);
     }
