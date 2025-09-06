@@ -3,8 +3,7 @@ package com.uade.tpo.Marketplace.service.users;
 import java.util.List;
 import java.util.Optional;
 
-import com.uade.tpo.Marketplace.controllers.categories.users.UserRequest;
-
+import com.uade.tpo.Marketplace.controllers.users.UserRequest;
 import com.uade.tpo.Marketplace.entity.User;
 
 import com.uade.tpo.Marketplace.exceptions.UserDuplicateException;

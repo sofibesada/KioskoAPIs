@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
 
@@ -35,7 +36,7 @@ public class Payment {
     @JoinColumn(name = "order_id", nullable = false, unique = true) // garantiza 1–1
     private Order order;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "payment_method_id", nullable = false)
     private PaymentMethod paymentMethod;
     

@@ -24,17 +24,21 @@ public class DeliveryMethodServiceImpl implements DeliveryMethodService {
     }
 
     @Override
-    public DeliveryMethod createDeliveryMethod(String name) {
+    public DeliveryMethod createDeliveryMethod(String name , String description, float price) {
         DeliveryMethod method = new DeliveryMethod();
         method.setName(name);
+        method.setDescription(description);
+        method.setPrice(price);
         return deliveryMethodRepository.save(method);
     }
 
     @Override
-    public DeliveryMethod updateDeliveryMethod(Long id, String name) {
+    public DeliveryMethod updateDeliveryMethod(Long id, String name, String description, float price) {
         DeliveryMethod method = deliveryMethodRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Método de entrega no encontrado con id: " + id));
         method.setName(name);
+        method.setDescription(description);
+        method.setPrice(price);    
         return deliveryMethodRepository.save(method);
     }
 

@@ -1,6 +1,6 @@
 package com.uade.tpo.Marketplace.service.users;
 
-import com.uade.tpo.Marketplace.controllers.categories.users.UserRequest;
+import com.uade.tpo.Marketplace.controllers.users.UserRequest;
 import com.uade.tpo.Marketplace.entity.User;
 import com.uade.tpo.Marketplace.repository.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

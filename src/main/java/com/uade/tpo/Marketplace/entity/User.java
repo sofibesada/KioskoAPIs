@@ -70,11 +70,6 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING) 
     private Genders gender;
 
-
-    // un vendedor puede publicar muchos productos
-    @OneToMany(mappedBy = "owner")
-    private List<Product> products;
-
     @OneToMany(mappedBy = "user")
     private List<Favorite> favorite;
 

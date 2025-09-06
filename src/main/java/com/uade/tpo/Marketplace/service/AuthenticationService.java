@@ -1,9 +1,9 @@
 package com.uade.tpo.Marketplace.service;
 
-import com.uade.tpo.Marketplace.controllers.categories.auth.AuthenticationRequest;
-import com.uade.tpo.Marketplace.controllers.categories.auth.AuthenticationResponse;
-import com.uade.tpo.Marketplace.controllers.categories.auth.RegisterRequest;
-import com.uade.tpo.Marketplace.controllers.categories.config.JwtService;
+import com.uade.tpo.Marketplace.controllers.auth.AuthenticationRequest;
+import com.uade.tpo.Marketplace.controllers.auth.AuthenticationResponse;
+import com.uade.tpo.Marketplace.controllers.auth.RegisterRequest;
+import com.uade.tpo.Marketplace.controllers.config.JwtService;
 import com.uade.tpo.Marketplace.entity.User;
 import com.uade.tpo.Marketplace.repository.users.UserRepository;
 import lombok.RequiredArgsConstructor;

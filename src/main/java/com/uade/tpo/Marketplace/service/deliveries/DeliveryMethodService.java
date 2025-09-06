@@ -7,7 +7,7 @@ import java.util.Optional;
 public interface DeliveryMethodService {
     List<DeliveryMethod> getDeliveryMethods();
     Optional<DeliveryMethod> getDeliveryMethodById(Long id);
-    DeliveryMethod createDeliveryMethod(String name);
-    DeliveryMethod updateDeliveryMethod(Long id, String name);
+    DeliveryMethod createDeliveryMethod(String name, String description, float price);
+    DeliveryMethod updateDeliveryMethod(Long id, String name, String description, float price);
     void deleteDeliveryMethod(Long id);
 }

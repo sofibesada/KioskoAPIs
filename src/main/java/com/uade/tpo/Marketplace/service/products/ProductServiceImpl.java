@@ -30,7 +30,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product createProduct(String name, String description, float price, int stock, Long categoryId, Long userId) throws ProductDuplicateException {
+    public Product createProduct(String name, String description, float price, int stock, Long categoryId) throws ProductDuplicateException {
         if (productRepository.existsByName(name)) {
             throw new ProductDuplicateException();
         }
@@ -49,7 +49,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product updateProduct(Long id, String name, String description, float price, int stock, Long categoryId, Long userId) throws ProductDuplicateException {
+    public Product updateProduct(Long id, String name, String description, float price, int stock, Long categoryId) throws ProductDuplicateException {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado con id: " + id));
 
