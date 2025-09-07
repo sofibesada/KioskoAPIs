@@ -10,8 +10,8 @@ public interface OrderService {
     List<Order> getOrders();
     Optional<Order> getOrderById(Long id);
     Optional<Order> getOrderByNumber(int number);
-    Order createOrder(Long userId, Long deliveryMethodId, int totalAmount);
-    Order updateOrder(Long id, Long userId, Long deliveryMethodId,  int totalAmount);
+    Order createOrder(Long userId, Long deliveryMethodId);
+    Order updateOrder(Long id, Long userId, Long deliveryMethodId);
     void deleteOrder(Long id);
     Order updateOrderState(Long id, OrderState newState);
 }

@@ -64,18 +64,7 @@ public class SecurityConfig {
 
         .requestMatchers(HttpMethod.POST,   "/countries/import").hasAuthority("ADMIN")
 
-        // Order States: admin CRUD; clientes (y admin) pueden ver
-        .requestMatchers(HttpMethod.GET,    "/order-states/**").hasAnyAuthority("CLIENTE","ADMIN")
-        .requestMatchers(HttpMethod.POST,   "/order-states/**").hasAuthority("ADMIN")
-        .requestMatchers(HttpMethod.PUT,    "/order-states/**").hasAuthority("ADMIN")
-        .requestMatchers(HttpMethod.DELETE, "/order-states/**").hasAuthority("ADMIN")
-
-        // Payment Methods: admin CRUD; clientes y admin pueden ver (catálogo de medios disponibles)
-        .requestMatchers(HttpMethod.GET,    "/payment-methods/**").hasAnyAuthority("CLIENTE","ADMIN")
-        .requestMatchers(HttpMethod.POST,   "/payment-methods/**").hasAuthority("ADMIN")
-        .requestMatchers(HttpMethod.PUT,    "/payment-methods/**").hasAuthority("ADMIN")
-        .requestMatchers(HttpMethod.DELETE, "/payment-methods/**").hasAuthority("ADMIN")
-
+  
         // Cliente (flujo de compra / datos propios)
         // Orders / OrderDetails / Invoices: clientes crean/modifican; ambos roles pueden ver
         .requestMatchers(HttpMethod.GET,    "/orders/**").hasAnyAuthority("CLIENTE","ADMIN")

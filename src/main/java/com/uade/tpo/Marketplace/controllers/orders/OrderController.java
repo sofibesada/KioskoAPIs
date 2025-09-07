@@ -41,9 +41,7 @@ public class OrderController {
     public ResponseEntity<Order> createOrder(@RequestBody OrderRequest request) {
         Order order = orderService.createOrder(
                 request.getUserId(),
-                request.getDeliveryMethodId(),
-             
-                request.getTotalAmount()
+                request.getDeliveryMethodId()
         );
         return ResponseEntity.created(URI.create("/orders/" + order.getId())).body(order);
     }
@@ -53,9 +51,7 @@ public class OrderController {
         Order updated = orderService.updateOrder(
                 id,
                 request.getUserId(),
-                request.getDeliveryMethodId(),
-           
-                request.getTotalAmount()
+                request.getDeliveryMethodId()
         );
         return ResponseEntity.ok(updated);
     }

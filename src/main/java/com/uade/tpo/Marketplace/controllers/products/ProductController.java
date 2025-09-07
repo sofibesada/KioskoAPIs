@@ -34,7 +34,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> createProduct(@RequestBody ProductRequest request) throws ProductDuplicateException {
+    public ResponseEntity<Product> createProduct(@RequestBody ProductRequest request) throws ProductDuplicateException {
         Product result = productService.createProduct(
                 request.getName(),
                 request.getDescription(),

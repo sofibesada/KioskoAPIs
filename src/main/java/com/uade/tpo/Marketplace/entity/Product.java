@@ -48,8 +48,4 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<Reviiew> review;
 
-    @ManyToOne
-    @JoinColumn(name = "user_admin_id", nullable = false)
-    private User userAdmin;
-
 }

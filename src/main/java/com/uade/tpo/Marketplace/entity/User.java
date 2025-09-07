@@ -77,8 +77,7 @@ public class User implements UserDetails {
     private List<Reviiew> review;
 
     
-    @OneToMany(mappedBy = "userAdmin")
-    private List<Product> products;
+
 
 
    @Override
