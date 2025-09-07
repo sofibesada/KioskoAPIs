@@ -3,11 +3,12 @@ package com.uade.tpo.Marketplace.entity;
 import java.sql.Timestamp;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
 
@@ -29,6 +30,10 @@ public class Payment {
     private int dni;
    
 
+    @Enumerated(EnumType.STRING) 
+    @Column(nullable = false)
+    private PaymentMethod method;
+ 
     @Column
     private double amount;
 
@@ -36,8 +41,5 @@ public class Payment {
     @JoinColumn(name = "order_id", nullable = false, unique = true) // garantiza 1–1
     private Order order;
 
-    @ManyToOne
-    @JoinColumn(name = "payment_method_id", nullable = false)
-    private PaymentMethod paymentMethod;
     
 }

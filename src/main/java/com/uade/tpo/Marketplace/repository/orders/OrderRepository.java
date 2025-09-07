@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.uade.tpo.Marketplace.entity.Order;
+import com.uade.tpo.Marketplace.entity.OrderState;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
@@ -17,8 +18,9 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     // buscar ordenes por usuario
     List<Order> findByUserId(Long userId);
 
-    // buscar por estado
-    List<Order> findByOrderStateId(Long orderStateId);
+
+    List<Order> findByState(OrderState state);
+
 
     // buscar por método de entrega
     List<Order> findByDeliveryMethodId(Long deliveryMethodId);

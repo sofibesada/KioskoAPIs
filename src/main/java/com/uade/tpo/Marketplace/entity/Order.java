@@ -6,6 +6,8 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -36,6 +38,9 @@ public class Order {
             this.number = this.id.intValue();
         }
     }
+    @Enumerated(EnumType.STRING) 
+    @Column(nullable = false)
+    private OrderState state = OrderState.PENDIENTE; //VALOR INICIAL POR DEFECTO
     
     @Column
     private Timestamp created_at;
@@ -65,9 +70,7 @@ public class Order {
     private DeliveryMethod deliveryMethod;
 
 
-    @ManyToOne
-    @JoinColumn (name = "orderState_id", nullable = false)
-    private OrderState orderState;
+
 
    
 

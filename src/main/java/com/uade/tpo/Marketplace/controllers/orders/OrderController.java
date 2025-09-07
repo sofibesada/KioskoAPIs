@@ -4,9 +4,11 @@ import java.net.URI;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.uade.tpo.Marketplace.entity.Order;
+import com.uade.tpo.Marketplace.entity.OrderState;
 import com.uade.tpo.Marketplace.service.orders.OrderService;
 
 @RestController
@@ -40,7 +42,7 @@ public class OrderController {
         Order order = orderService.createOrder(
                 request.getUserId(),
                 request.getDeliveryMethodId(),
-                request.getOrderStateId(),
+             
                 request.getTotalAmount()
         );
         return ResponseEntity.created(URI.create("/orders/" + order.getId())).body(order);
@@ -52,7 +54,7 @@ public class OrderController {
                 id,
                 request.getUserId(),
                 request.getDeliveryMethodId(),
-                request.getOrderStateId(),
+           
                 request.getTotalAmount()
         );
         return ResponseEntity.ok(updated);
@@ -63,4 +65,14 @@ public class OrderController {
         orderService.deleteOrder(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PatchMapping("/{id}/state")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Order> updateOrderState(
+            @PathVariable Long id,
+            @RequestParam OrderState state) {
+        Order updated = orderService.updateOrderState(id, state);
+        return ResponseEntity.ok(updated);
+    }
+
 }

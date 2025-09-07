@@ -12,7 +12,6 @@ import com.uade.tpo.Marketplace.entity.*;
 import com.uade.tpo.Marketplace.repository.orders.OrderRepository;
 import com.uade.tpo.Marketplace.repository.users.UserRepository;
 import com.uade.tpo.Marketplace.repository.deliveries.DeliveryMethodRepository;
-import com.uade.tpo.Marketplace.repository.orderstates.OrderStateRepository;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -20,7 +19,6 @@ public class OrderServiceImpl implements OrderService {
     @Autowired private OrderRepository orderRepository;
     @Autowired private UserRepository userRepository;
     @Autowired private DeliveryMethodRepository deliveryMethodRepository;
-    @Autowired private OrderStateRepository orderStateRepository;
 
     @Override
     public List<Order> getOrders() {
@@ -38,21 +36,18 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order createOrder(Long userId, Long deliveryMethodId, Long orderStateId, Long totalAmount) {
+    public Order createOrder(Long userId, Long deliveryMethodId, int totalAmount) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con id: " + userId));
         DeliveryMethod deliveryMethod = deliveryMethodRepository.findById(deliveryMethodId)
                 .orElseThrow(() -> new IllegalArgumentException("Método de entrega no encontrado con id: " + deliveryMethodId));
-        OrderState orderState = orderStateRepository.findById(orderStateId)
-                .orElseThrow(() -> new IllegalArgumentException("Estado de orden no encontrado con id: " + orderStateId));
-
+    
 
              
         Order order = new Order();
         order.setUser(user);
         order.setDeliveryMethod(deliveryMethod);
-        order.setOrderState(orderState);
-        order.setTotal_amount(totalAmount);
+        order.setTotal_amount(deliveryMethodId);
         order.setCreated_at(Timestamp.from(Instant.now()));
 
 
@@ -60,7 +55,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order updateOrder(Long id, Long userId, Long deliveryMethodId, Long orderStateId, Long totalAmount) {
+    public Order updateOrder(Long id, Long userId, Long deliveryMethodId, int totalAmount) {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Orden no encontrada con id: " + id));
 
@@ -68,13 +63,11 @@ public class OrderServiceImpl implements OrderService {
                 .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con id: " + userId));
         DeliveryMethod deliveryMethod = deliveryMethodRepository.findById(deliveryMethodId)
                 .orElseThrow(() -> new IllegalArgumentException("Método de entrega no encontrado con id: " + deliveryMethodId));
-        OrderState orderState = orderStateRepository.findById(orderStateId)
-                .orElseThrow(() -> new IllegalArgumentException("Estado de orden no encontrado con id: " + orderStateId));
+
 
         order.setUser(user);
         order.setDeliveryMethod(deliveryMethod);
-        order.setOrderState(orderState);
-        order.setTotal_amount(totalAmount);
+        order.setTotal_amount(deliveryMethodId);
         order.setUpdated_at(Timestamp.from(Instant.now()));
 
         return orderRepository.save(order);
@@ -87,4 +80,38 @@ public class OrderServiceImpl implements OrderService {
         order.setDeleteAt(Timestamp.from(Instant.now()));
         orderRepository.save(order);
     }
+
+
+    public Order updateOrderState(Long orderId, OrderState newState) {
+    Order order = orderRepository.findById(orderId)
+            .orElseThrow(() -> new RuntimeException("Orden no encontrada"));
+
+    OrderState currentState = order.getState();
+
+    // Validar transiciones
+    switch (currentState) {
+        case PENDIENTE:
+            if (newState != OrderState.PAGADO && newState != OrderState.CANCELADO) {
+                throw new IllegalStateException("Una orden pendiente solo puede pasar a PAGO o CANCELADA");
+            }
+            break;
+        case PAGADO:
+            if (newState != OrderState.ENVIADO) {
+                throw new IllegalStateException("Una orden pagada solo puede pasar a ENVIADA");
+            }
+            break;
+        case ENVIADO:
+            if (newState != OrderState.ENTREGADO) {
+                throw new IllegalStateException("Una orden enviada solo puede pasar a ENTREGADA");
+            }
+            break;
+        case ENTREGADO:
+        case CANCELADO:
+            throw new IllegalStateException("Una orden entregada o cancelada no puede cambiar de estado");
+    }
+
+    order.setState(newState);
+    return orderRepository.save(order);
+}
+
 }

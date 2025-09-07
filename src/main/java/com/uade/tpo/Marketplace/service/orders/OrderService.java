@@ -4,13 +4,15 @@ import java.util.List;
 import java.util.Optional;
 
 import com.uade.tpo.Marketplace.entity.Order;
+import com.uade.tpo.Marketplace.entity.OrderState;
 
 public interface OrderService {
     List<Order> getOrders();
     Optional<Order> getOrderById(Long id);
     Optional<Order> getOrderByNumber(int number);
-    Order createOrder(Long userId, Long deliveryMethodId, Long orderStateId, Long totalAmount);
-    Order updateOrder(Long id, Long userId, Long deliveryMethodId, Long orderStateId, Long totalAmount);
+    Order createOrder(Long userId, Long deliveryMethodId, int totalAmount);
+    Order updateOrder(Long id, Long userId, Long deliveryMethodId,  int totalAmount);
     void deleteOrder(Long id);
+    Order updateOrderState(Long id, OrderState newState);
 }
 
