@@ -13,4 +13,5 @@ public interface ProductService {
     void deleteProduct(Long id);
     Product save(Product product);
     List<Product> getAvailableProducts();
+    Product updateStock(Long id, int stock);
 }

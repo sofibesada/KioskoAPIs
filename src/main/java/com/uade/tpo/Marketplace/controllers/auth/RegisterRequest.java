@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 
 @Data @Builder @AllArgsConstructor @NoArgsConstructor
 public class RegisterRequest {
-    private String firstname;   // se mapea a User.name
-    private String lastname;    // se mapea a User.surname
+    private String firstname;   
+    private String lastname;    
     private String email;
     private String password;
-    private UserType userType;    // "Cliente", "Admin", etc. (String)
+    private UserType userType;   
     private Genders gender;
     
     

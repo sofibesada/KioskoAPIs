@@ -28,10 +28,10 @@ public class SecurityConfig {
     http
       .csrf(AbstractHttpConfigurer::disable)
       .authorizeHttpRequests(auth -> auth
-        // 0) Auth público
+        // Auth público
         .requestMatchers("/api/v1/auth/**").permitAll()
 
-        // 1) Público (sin login)
+        //Público (sin login)
         //    - Productos visibles para cualquiera
         .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
         //    - Reviews visibles para cualquiera
@@ -42,13 +42,14 @@ public class SecurityConfig {
         .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
         .requestMatchers(HttpMethod.GET, "/delivery-methods/**").permitAll()
 
-        // 2) SOLO CLIENTE o ADMIN (visibilidad, no anónimo)
+        // SOLO CLIENTE o ADMIN (visibilidad, no anónimo)
         //    - TypeReceipts: clientes los generan; admin los puede ver
         .requestMatchers(HttpMethod.GET, "/typereceipts/**").hasAnyAuthority("CLIENTE","ADMIN")
 
-        // 3) Admin-only (CRUD de catálogo / mantenimiento)
+        // Admin-only (CRUD de catálogo / mantenimiento)
         .requestMatchers(HttpMethod.POST,   "/products/**").hasAuthority("ADMIN")
         .requestMatchers(HttpMethod.PUT,    "/products/**").hasAuthority("ADMIN")
+        .requestMatchers(HttpMethod.PATCH, "/products/**").hasAuthority("ADMIN")
         .requestMatchers(HttpMethod.DELETE, "/products/**").hasAuthority("ADMIN")
         // subir imagen de producto
         .requestMatchers(HttpMethod.POST,   "/products/*/upload-image").hasAuthority("ADMIN")
@@ -75,7 +76,7 @@ public class SecurityConfig {
         .requestMatchers(HttpMethod.PUT,    "/payment-methods/**").hasAuthority("ADMIN")
         .requestMatchers(HttpMethod.DELETE, "/payment-methods/**").hasAuthority("ADMIN")
 
-        // 4) Cliente (flujo de compra / datos propios)
+        // Cliente (flujo de compra / datos propios)
         // Orders / OrderDetails / Invoices: clientes crean/modifican; ambos roles pueden ver
         .requestMatchers(HttpMethod.GET,    "/orders/**").hasAnyAuthority("CLIENTE","ADMIN")
         .requestMatchers(HttpMethod.POST,   "/orders/**").hasAuthority("CLIENTE")
@@ -115,11 +116,11 @@ public class SecurityConfig {
         .requestMatchers(HttpMethod.PUT,    "/typereceipts/**").hasAuthority("CLIENTE")
         .requestMatchers(HttpMethod.DELETE, "/typereceipts/**").hasAuthority("CLIENTE")
 
-        // 5) Users:
+        //Users:
         //     Dejamos autenticado y delegamos la fine-grained rule a @PreAuthorize en el controller.
         .requestMatchers("/users/**").authenticated()
 
-        // 6) Cualquier otra cosa: autenticado
+        //Cualquier otra cosa: autenticado
         .anyRequest().authenticated()
       )
       .sessionManagement(s -> s.sessionCreationPolicy(STATELESS))

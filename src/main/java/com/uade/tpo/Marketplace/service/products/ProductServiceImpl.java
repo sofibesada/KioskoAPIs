@@ -86,5 +86,14 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findByStockGreaterThan(0);
     }
 
+    public Product updateStock(Long id, int stock) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+
+        product.setStock(stock);
+        return productRepository.save(product);
+    }
+
+
 
 }

@@ -50,7 +50,6 @@ public class JwtService {
   }
 
   private SecretKey getSecretKey() {
-    // Clave >= 256 bits (32+ chars). Usá una propia en properties.
     return Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
   }
 }

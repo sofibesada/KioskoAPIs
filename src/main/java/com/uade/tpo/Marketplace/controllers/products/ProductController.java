@@ -3,6 +3,7 @@ package com.uade.tpo.Marketplace.controllers.products;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.uade.tpo.Marketplace.entity.Product;
 import com.uade.tpo.Marketplace.exceptions.ProductDuplicateException;
@@ -90,7 +91,15 @@ public class ProductController {
         return ResponseEntity.ok(productService.getAvailableProducts());
     }
 
-    //patch para poder actualizar stock
+    @PatchMapping("/{id}/stock")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Product> updateStock(
+            @PathVariable Long id,
+            @RequestParam int stock) {
+        Product updated = productService.updateStock(id, stock);
+        return ResponseEntity.ok(updated);
+    }
+
 
 
 
