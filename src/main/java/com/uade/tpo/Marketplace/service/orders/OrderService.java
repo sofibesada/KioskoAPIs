@@ -14,5 +14,6 @@ public interface OrderService {
     Order updateOrder(Long id, Long userId, Long deliveryMethodId);
     void deleteOrder(Long id);
     Order updateOrderState(Long id, OrderState newState);
+    float calculateTotalAmount(Order order);
 }
 

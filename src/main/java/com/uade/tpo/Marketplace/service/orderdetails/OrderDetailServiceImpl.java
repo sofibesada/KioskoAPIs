@@ -13,6 +13,7 @@ import com.uade.tpo.Marketplace.entity.Product;
 import com.uade.tpo.Marketplace.repository.orderdetails.OrderDetailRepository;
 import com.uade.tpo.Marketplace.repository.orders.OrderRepository;
 import com.uade.tpo.Marketplace.repository.products.ProductRepository;
+import com.uade.tpo.Marketplace.service.orders.OrderService;
 
 @Service
 public class OrderDetailServiceImpl implements OrderDetailService{
@@ -24,6 +25,8 @@ public class OrderDetailServiceImpl implements OrderDetailService{
 
     @Autowired
     private ProductRepository productRepository;
+
+     @Autowired private OrderService orderService;
 
     @Override
     public List<OrderDetail> getOrderDetails() {
@@ -52,8 +55,15 @@ public class OrderDetailServiceImpl implements OrderDetailService{
         detail.setProduct(product);
         detail.setQuantity(quantity);
         detail.setSubtotal(quantity * product.getPrice());
+        
 
-        return orderDetailRepository.save(detail);
+        orderDetailRepository.save(detail);
+
+
+        order.setTotalAmount(orderService.calculateTotalAmount(order));
+        orderRepository.save(order);
+
+        return detail;
     }
 
     @Override
@@ -64,11 +74,30 @@ public class OrderDetailServiceImpl implements OrderDetailService{
         detail.setQuantity(quantity);
         detail.setSubtotal(quantity * detail.getProduct().getPrice());
 
-        return orderDetailRepository.save(detail);
+        orderDetailRepository.save(detail);
+
+
+        Order order = detail.getOrder();
+        order.setTotalAmount(orderService.calculateTotalAmount(order));
+        orderRepository.save(order);
+
+        return detail;
     }
 
     @Override
     public void deleteOrderDetail(Long id) {
-        orderDetailRepository.deleteById(id);
+        OrderDetail detail = orderDetailRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Detalle no encontrado"));
+
+        Order order = detail.getOrder();
+        orderDetailRepository.delete(detail);
+
+        // Recalcular total
+        order.setTotalAmount(orderService.calculateTotalAmount(order));
+        orderRepository.save(order);
+    
     }
+
+
+    
 }

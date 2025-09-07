@@ -50,9 +50,9 @@ public class OrderServiceImpl implements OrderService {
         Order order = new Order();
         order.setUser(user);
         order.setDeliveryMethod(deliveryMethod);
-        order.calculateTotalAmount();
         order.setCreated_at(Timestamp.from(Instant.now()));
-
+        order.setTotalAmount(deliveryMethod.getPrice());
+        
 
         return orderRepository.save(order); // acá Hibernate persiste y luego @PostPersist setea number
     }
@@ -70,10 +70,24 @@ public class OrderServiceImpl implements OrderService {
 
         order.setUser(user);
         order.setDeliveryMethod(deliveryMethod);
-        order.calculateTotalAmount();
         order.setUpdated_at(Timestamp.from(Instant.now()));
+        order.setTotalAmount(calculateTotalAmount(order));
 
         return orderRepository.save(order);
+    }
+
+    @Override
+    public float calculateTotalAmount(Order order) {
+        float total = 0f;
+        if (order.getOrderDetail() != null) {
+            for (OrderDetail detail : order.getOrderDetail()) {
+                total += detail.getSubtotal(); // solo productos
+            }
+        }
+        if (order.getDeliveryMethod() != null) {
+            total += order.getDeliveryMethod().getPrice(); // delivery solo una vez
+        }
+        return total;
     }
 
     @Override

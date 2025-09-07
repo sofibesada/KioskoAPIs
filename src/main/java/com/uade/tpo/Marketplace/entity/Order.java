@@ -51,33 +51,12 @@ public class Order {
     @Column
     private Timestamp deleteAt;
     @Column
-    private Long total_amount;
+    private float totalAmount;
     
    
 
 
-    public void calculateTotalAmount() {
-        BigDecimal total = BigDecimal.ZERO;
-
-    // Sumar productos (precio * cantidad)
-        for (OrderDetail detail : orderDetail) {
-                BigDecimal productPrice = BigDecimal.valueOf((double) detail.getProduct().getPrice()); 
-                BigDecimal lineTotal = productPrice.multiply(BigDecimal.valueOf(detail.getQuantity()));
-                total = total.add(lineTotal);
-
-                // Guardar subtotal en OrderDetail
-                detail.setSubtotal(lineTotal.floatValue()); 
-        }
-
-        // Sumar el costo del método de entrega
-        if (deliveryMethod != null) {
-                total = total.add(BigDecimal.valueOf((double) deliveryMethod.getPrice()));
-        }
-
-        // Setear el total en la orden
-        this.total_amount = total.longValue(); // o .floatValue() si lo querés igual que tu atributo
-   }
-
+    
 
     @ManyToOne //join entre las dos--> esta orden q es de 1 unico usuario se relaciona con esta orden
     @JoinColumn(name = "user_id", nullable = false) //si o si tiene q haber user_id sino ordern no se persiste (para eso nullable q es un booleano) 
