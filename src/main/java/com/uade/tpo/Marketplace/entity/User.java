@@ -1,5 +1,6 @@
 package com.uade.tpo.Marketplace.entity;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -50,11 +51,9 @@ public class User implements UserDetails {
    
     private LocalDateTime createdAt;
   
-    private LocalDateTime updatedAt;
+    private Timestamp updatedAt;
    
-    private LocalDateTime deleteAt;
-    
-  
+    private Timestamp deleteAt; //nooo
 
     
     @OneToMany(mappedBy = "user") 

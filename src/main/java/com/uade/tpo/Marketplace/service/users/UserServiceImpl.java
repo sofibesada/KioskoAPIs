@@ -6,6 +6,9 @@ import com.uade.tpo.Marketplace.repository.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,6 +55,8 @@ public class UserServiceImpl implements UserService {
 
         if (request.getUsertype() != null) user.setUserType(request.getUsertype());
         if (request.getGender() != null) user.setGender(request.getGender());
+
+        user.setUpdatedAt(Timestamp.from(Instant.now()));
 
         return userRepository.save(user);
     }
