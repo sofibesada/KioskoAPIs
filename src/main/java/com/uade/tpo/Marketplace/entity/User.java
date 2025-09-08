@@ -77,9 +77,6 @@ public class User implements UserDetails {
     private List<Reviiew> review;
 
     
-
-
-
    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(userType.name()));
