@@ -10,7 +10,6 @@ public class Favorite {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     //un usuario tiene muchos favoritos
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

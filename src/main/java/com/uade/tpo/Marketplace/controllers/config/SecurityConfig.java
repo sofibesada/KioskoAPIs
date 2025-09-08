@@ -36,8 +36,6 @@ public class SecurityConfig {
         .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
         //    - Reviews visibles para cualquiera
         .requestMatchers(HttpMethod.GET, "/reviews/**").permitAll()
-        //    - Países visibles para cualquiera
-        .requestMatchers(HttpMethod.GET, "/countries/**").permitAll()
         //    - Categorías y métodos de entrega "visibles" para clientes; admin puede todo (incluye GET).
         .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
         .requestMatchers(HttpMethod.GET, "/delivery-methods/**").permitAll()
@@ -61,9 +59,6 @@ public class SecurityConfig {
         .requestMatchers(HttpMethod.POST,   "/delivery-methods/**").hasAuthority("ADMIN")
         .requestMatchers(HttpMethod.PUT,    "/delivery-methods/**").hasAuthority("ADMIN")
         .requestMatchers(HttpMethod.DELETE, "/delivery-methods/**").hasAuthority("ADMIN")
-
-        .requestMatchers(HttpMethod.POST,   "/countries/import").hasAuthority("ADMIN")
-
   
         // Cliente (flujo de compra / datos propios)
         // Orders / OrderDetails / Invoices: clientes crean/modifican; ambos roles pueden ver

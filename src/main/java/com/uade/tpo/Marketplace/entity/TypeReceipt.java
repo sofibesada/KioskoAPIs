@@ -17,13 +17,10 @@ public class TypeReceipt {
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column
     private int number;
-
     @Column
     private String receipt;
-
     @OneToMany (mappedBy = "typeReceipt")
     private List<Invoice> invoices;
 }

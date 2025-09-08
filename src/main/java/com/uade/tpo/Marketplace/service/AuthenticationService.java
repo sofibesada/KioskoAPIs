@@ -25,20 +25,15 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
-        
-
-        // 3) Construir usuario
         User user = User.builder()
-                .name(request.getFirstname())         // firstname -> name
-                .surname(request.getLastname())       // lastname  -> surname
+                .name(request.getFirstname())         
+                .surname(request.getLastname())       
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .userType(request.getUserType())
                 .gender(request.getGender())
-                .createdAt(LocalDateTime.now())                       // <-- CLAVE
+                .createdAt(LocalDateTime.now())                     
                 .build();
-
-        // 4) Guardar y token
         userRepository.save(user);
 
         String jwtToken = jwtService.generateToken(user);
@@ -57,7 +52,6 @@ public class AuthenticationService {
 
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-
         String jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)

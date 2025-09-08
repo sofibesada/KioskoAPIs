@@ -11,13 +11,8 @@ import java.util.List;
 @Repository
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
 
-    // Buscar todos los pagos de un pedido
     List<Payment> findByOrderId(Long orderId);
-
-    // Buscar pagos por monto mayor a X
     List<Payment> findByAmountGreaterThan(double amount);
-
-    // Buscar pagos por método
     List<Payment> findByMethod(PaymentMethod method);
 
 }

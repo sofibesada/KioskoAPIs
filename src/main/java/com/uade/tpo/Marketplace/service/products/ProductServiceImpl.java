@@ -1,7 +1,5 @@
 package com.uade.tpo.Marketplace.service.products;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import com.uade.tpo.Marketplace.entity.Product;
 import com.uade.tpo.Marketplace.exceptions.ProductDuplicateException;
 import com.uade.tpo.Marketplace.repository.categories.CategoryRepositoryNew;
 import com.uade.tpo.Marketplace.repository.products.ProductRepository;
-import com.uade.tpo.Marketplace.repository.users.UserRepository;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -21,9 +18,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private CategoryRepositoryNew categoryRepository;
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Override
     public List<Product> getProducts() {

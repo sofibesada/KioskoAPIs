@@ -11,24 +11,11 @@ import com.uade.tpo.Marketplace.entity.OrderState;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
-
-    // buscar ordenes activas (no eliminadas)
     List<Order> findByDeleteAtIsNull();
-
-    // buscar ordenes por usuario
     List<Order> findByUserId(Long userId);
-
-
     List<Order> findByState(OrderState state);
-
-
-    // buscar por método de entrega
     List<Order> findByDeliveryMethodId(Long deliveryMethodId);
-
     Order findByNumber(int number);
-
-
-    // buscar por rango de fechas
     @Query("SELECT o FROM Order o WHERE o.created_at BETWEEN :startDate AND :endDate")
     List<Order> findOrdersBetweenDates(Timestamp startDate, Timestamp endDate);
 

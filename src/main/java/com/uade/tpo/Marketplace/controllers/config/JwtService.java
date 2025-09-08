@@ -19,7 +19,7 @@ public class JwtService {
   private String secretKey;
 
   @Value("${application.security.jwt.expiration}")
-  private long jwtExpiration; // milisegundos
+  private long jwtExpiration;
 
   public String generateToken(UserDetails userDetails) {
     return Jwts.builder()

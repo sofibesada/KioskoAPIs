@@ -1,6 +1,5 @@
 package com.uade.tpo.Marketplace.service.orders;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
@@ -54,7 +53,7 @@ public class OrderServiceImpl implements OrderService {
         order.setTotalAmount(deliveryMethod.getPrice());
         
 
-        return orderRepository.save(order); // acá Hibernate persiste y luego @PostPersist setea number
+        return orderRepository.save(order);
     }
 
     @Override
@@ -81,11 +80,11 @@ public class OrderServiceImpl implements OrderService {
         float total = 0f;
         if (order.getOrderDetail() != null) {
             for (OrderDetail detail : order.getOrderDetail()) {
-                total += detail.getSubtotal(); // solo productos
+                total += detail.getSubtotal(); 
             }
         }
         if (order.getDeliveryMethod() != null) {
-            total += order.getDeliveryMethod().getPrice(); // delivery solo una vez
+            total += order.getDeliveryMethod().getPrice(); 
         }
         return total;
     }

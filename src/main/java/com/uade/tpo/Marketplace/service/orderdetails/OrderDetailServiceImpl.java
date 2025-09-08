@@ -91,8 +91,6 @@ public class OrderDetailServiceImpl implements OrderDetailService{
 
         Order order = detail.getOrder();
         orderDetailRepository.delete(detail);
-
-        // Recalcular total
         order.setTotalAmount(orderService.calculateTotalAmount(order));
         orderRepository.save(order);
     

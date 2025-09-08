@@ -13,7 +13,7 @@ public class Reviiew {
     private Long id;
 
     @Column(nullable = false)
-    private int rating; // de 1 a 5
+    private int rating;
 
     @Column(length = 500)
     private String comment;

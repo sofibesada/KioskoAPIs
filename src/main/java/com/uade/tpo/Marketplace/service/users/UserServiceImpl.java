@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder; // Para encriptar passwords
+    private PasswordEncoder passwordEncoder; 
 
     @Override
     public List<User> getUsers() {
@@ -30,8 +30,6 @@ public class UserServiceImpl implements UserService {
     public Optional<User> getUserById(Long id) {
         return userRepository.findById(id);
     }
-
-    
 
     @Override
     public User updateUser(Long id, UserRequest request) {
@@ -60,7 +58,6 @@ public class UserServiceImpl implements UserService {
 
         return userRepository.save(user);
     }
-
 
     @Override
     public void deleteUser(Long id) {

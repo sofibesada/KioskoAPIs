@@ -34,8 +34,6 @@ public class Address {
     @Column
     private String province;
 
-    //poner pais como default argentina
-
     @OneToMany(mappedBy = "address")
     private List<User> users;
 

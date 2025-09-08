@@ -3,7 +3,6 @@ package com.uade.tpo.Marketplace.service.payments;
 import com.uade.tpo.Marketplace.entity.Order;
 import com.uade.tpo.Marketplace.entity.Payment;
 import com.uade.tpo.Marketplace.entity.PaymentMethod;
-import com.uade.tpo.Marketplace.repository.orderdetails.OrderDetailRepository;
 import com.uade.tpo.Marketplace.repository.orders.OrderRepository;
 import com.uade.tpo.Marketplace.repository.payments.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;

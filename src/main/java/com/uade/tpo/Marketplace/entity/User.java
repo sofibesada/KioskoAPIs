@@ -53,7 +53,7 @@ public class User implements UserDetails {
   
     private Timestamp updatedAt;
    
-    private Timestamp deleteAt; //nooo
+    private Timestamp deleteAt; 
 
     
     @OneToMany(mappedBy = "user") 

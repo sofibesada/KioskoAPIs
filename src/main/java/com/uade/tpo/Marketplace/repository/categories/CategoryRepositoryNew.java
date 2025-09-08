@@ -8,7 +8,6 @@ import com.uade.tpo.Marketplace.entity.Category;
 
 @Repository
 public interface CategoryRepositoryNew extends JpaRepository<Category, Long> {
-
     @Query("SELECT c FROM Category c WHERE c.name = ?1")
     List<Category> findByName(String name);
 
